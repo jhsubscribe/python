@@ -31,7 +31,12 @@ else
   default['python']['prefix_dir']         = '/usr/local'
 end
 
-default['python']['binary'] = "#{node['python']['prefix_dir']}/bin/python"
+# default['python']['binary'] = "#{node['python']['prefix_dir']}/bin/python"
+if python['make_options'] == %W{install}
+    default['python']['binary'] = "#{node['python']['prefix_dir']}/bin/python#{python['version'].split(/(^\d+\.\d+)/)[1]}"
+  else
+    default['python']['binary'] = "#{node['python']['prefix_dir']}/bin/python"
+end
 
 default['python']['url'] = 'http://www.python.org/ftp/python'
 default['python']['version'] = '2.7.5'
